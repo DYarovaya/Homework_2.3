@@ -37,7 +37,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="8xu-L2-Vcz" kind="presentation" modalPresentationStyle="fullScreen" id="qPI-14-aie"/>
+                                            <segue destination="8xu-L2-Vcz" kind="presentation" identifier="goToWelcomeScreen" modalPresentationStyle="fullScreen" id="qPI-14-aie"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="redraw" distribution="fillEqually" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="rlc-wg-iz2">

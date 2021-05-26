@@ -45,6 +45,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         } else {
             textField.resignFirstResponder()
         }
+        
+        if nextTag > 1 {
+            performSegue(withIdentifier: "goToWelcomeScreen", sender: self)
+        }
         return true
     }
     //переход на второй экран
