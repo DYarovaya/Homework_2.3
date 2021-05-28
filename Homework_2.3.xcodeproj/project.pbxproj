@@ -60,12 +60,12 @@
 			children = (
 				4B0D631E265CE0F900F1C384 /* AppDelegate.swift */,
 				4B0D6320265CE0F900F1C384 /* SceneDelegate.swift */,
-				4B0D6322265CE0F900F1C384 /* LoginViewController.swift */,
-				4B0D6324265CE0F900F1C384 /* Main.storyboard */,
-				4B0D6327265CE0FC00F1C384 /* Assets.xcassets */,
 				4B0D6329265CE0FC00F1C384 /* LaunchScreen.storyboard */,
 				4B0D632C265CE0FC00F1C384 /* Info.plist */,
+				4B0D6324265CE0F900F1C384 /* Main.storyboard */,
 				4B0D6334265CE20A00F1C384 /* WelcomeScreenViewController.swift */,
+				4B0D6322265CE0F900F1C384 /* LoginViewController.swift */,
+				4B0D6327265CE0FC00F1C384 /* Assets.xcassets */,
 			);
 			path = Homework_2.3;
 			sourceTree = "<group>";

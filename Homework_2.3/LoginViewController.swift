@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -16,12 +16,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var loginButton: UIButton!
     
+    private let user = "User"
+    private let password = "Password"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loginButton.layer.cornerRadius = 5
         userNameTextField.delegate = self
         passwordTextField.delegate = self
         
+        setupButton(button: forgotUserNameButton, title: "Forgot\nuser name?")
+        setupButton(button: forgotPasswordButton, title: "Forgot\npassword?")
+        
+    }
+    
+    private func setupButton(button: UIButton, title: String) {
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.lineBreakMode = .byWordWrapping
+        button.titleLabel?.textAlignment = .center
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,36 +43,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    //скрытие клавиатуры по тапу в другое место
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super .touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-    //переход в следующее поле ввода
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let nextTag = textField.tag + 1
-
-        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
-            nextResponder.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
-        }
-        
-        if nextTag > 1 {
-            performSegue(withIdentifier: "goToWelcomeScreen", sender: self)
-        }
-        return true
-    }
     //переход на второй экран
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let welcomeScreenVC = segue.destination as? WelcomeScreenViewController else { return }
         
-        guard userNameTextField.text == "User" && passwordTextField.text == "Password" else {
-            showAlert(with: "Invalid login or password", message: "Please, enter correct login and password")
+        guard userNameTextField.text == user && passwordTextField.text == password else {
+            showAlert(title: "Invalid login or password", message: "Please, enter correct login and password")
             return
         }
-        welcomeScreenVC.userName = userNameTextField.text ?? ""
+        welcomeScreenVC.userName = user
     }
+
     //возвращение с другого экрана
     @IBAction func unwind(for segue: UIStoryboardSegue) {
         guard segue.source is WelcomeScreenViewController else { return }
@@ -68,13 +61,32 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.text = ""
     }
     //настройка алерта
-    private func showAlert(with title: String, message: String) {
+    private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
         present(alert, animated: true)
     }
     
     @IBAction func pressedForgotButton(_ sender: UIButton) {
-        sender == forgotUserNameButton ? showAlert(with: "Oops!", message: "Your name is User") : showAlert(with: "Oops!", message: "Your password is Password")
+        sender == forgotUserNameButton
+            ? showAlert(title: "Oops!", message: "Your name is User")
+            : showAlert(title: "Oops!", message: "Your password is Password")
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    //скрытие клавиатуры по тапу в другое место
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super .touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    //переход в следующее поле ввода
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == userNameTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            performSegue(withIdentifier: "goToWelcomeScreen", sender: self)
+        }
+        return true
     }
 }

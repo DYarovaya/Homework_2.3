@@ -10,14 +10,13 @@ import UIKit
 class WelcomeScreenViewController: UIViewController {
     
     @IBOutlet weak var welcomePhraseLabel: UILabel!
-    
     @IBOutlet weak var logOutButton: UIButton!
     
     var userName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        welcomePhraseLabel.text = "Привет, \(userName)"
+        welcomePhraseLabel.text = "Welcome, \(userName) 🖐"
         logOutButton.layer.cornerRadius = 5
     }
     override func viewWillAppear(_ animated: Bool) {
